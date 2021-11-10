@@ -19,6 +19,7 @@ async function run() {
         await client.connect();
         const database = client.db("canvasHeadphone_data");
         const productsCollection = database.collection("products");
+        const servicesCollection = database.collection("services");
 
         // GET Package API
         app.get('/products' , async(req, res) => {
@@ -27,13 +28,20 @@ async function run() {
             res.send(products);
         })
 
-        const ser = {
-            googl:"Wide Variety of Tours",
-            descrip:"We offer a wide variety of personally picked tours with destinations a...",
-            icon:"fab fa-watchman-monitoring"
-        }
-        const result = await productsCollection.insertOne(ser);
-        console.log(`ser : ${result.insertedId}`);
+        // const ser = {
+        //     googl:"Wide Variety of Tours",
+        //     descrip:"We offer a wide variety of personally picked tours with destinations a...",
+        //     icon:"fab fa-watchman-monitoring"
+        // }
+        // const result = await productsCollection.insertOne(ser);
+        // console.log(`ser : ${result.insertedId}`);
+
+        // GET Services API
+      app.get('/services' , async(req, res) => {
+        const cursor = servicesCollection.find({});
+        const services = await cursor.toArray();
+        res.send(services);
+      })
 
     } finally {
       // await client.close();
