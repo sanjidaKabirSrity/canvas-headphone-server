@@ -28,6 +28,17 @@ async function run() {
             res.send(products);
         })
 
+        // GET Single Package API
+        app.get('/products/:id' , async(req, res) => {
+          const id = req.params.id;
+          // console.log("Getting specific products " , id);
+          const query = {_id:ObjectId(id)};
+          const product = await productsCollection.findOne(query);
+          // console.log('load user with id', id);
+          // res.send(product);
+          res.json(product);
+        })
+
         // const ser = {
         //     googl:"Wide Variety of Tours",
         //     descrip:"We offer a wide variety of personally picked tours with destinations a...",
